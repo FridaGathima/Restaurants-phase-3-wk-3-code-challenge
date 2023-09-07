@@ -12,11 +12,6 @@ class Restaurant(Base):
     price = Column(Integer())
     reviews = relationship('Review', back_populates='restaurant')
 
-
-    def __init__(self, reviews, customers):
-        self.reviews = reviews
-        self.customers = customers
-
     def reviews(self):
         return self.reviews
 
@@ -33,10 +28,6 @@ class Customer(Base):
     first_name = Column(String())
     last_name = Column(String())
     reviews = relationship('Review', back_populates='customer')
-
-    def __init__(self, reviews, restaurant):
-        self.reviews = reviews
-        self.restaurant = restaurant
 
     def reviews(self):
         return self.reviews
@@ -57,11 +48,6 @@ class Review(Base):
     customer_id = Column(Integer, ForeignKey('customers.id'))
     restaurant = relationship('Restaurant', back_populates='reviews')
     customer = relationship('Customer', back_populates='reviews')
-
-    def __init__(self, star_rating, restaurant, customer):
-        self.star_rating = star_rating
-        self.restaurant = restaurant
-        self.customer = customer
 
     # should return the `Customer` instance for this review
     def customer(self):
